@@ -2,13 +2,6 @@
 # __author__='wujide'
 from flask import json
 from interface_test_class import InterfaceTest
-'''
-with open(r'../info/user_pwd', 'r') as f:
-    lines_strip = f.readline().split()
-    phoneNum = lines_strip[0].split('=')[1]
-    loginpwd = lines_strip[1].split('=')[1]
-    print "phoneNum, loginpwd:", phoneNum, loginpwd
-'''
 
 
 def login():
