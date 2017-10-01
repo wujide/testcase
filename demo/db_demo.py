@@ -9,7 +9,8 @@ with open(r"../info/db", 'r') as f:
     d = eval(json.loads(values))  # type(data): <type 'dict'>
 db = MySQLdb.connect(d['db_addr'], d['user'], d['pwd'], d['db_lib'])
 cursor = db.cursor()
-cursor.execute("SELECT * FROM tb_customer_login WHERE invit_Customer_id = '1360000929'")
+cmd = "SELECT * FROM tb_customer_login WHERE invit_Customer_id = '1360000929'"
+cursor.execute(cmd)
 data = cursor.fetchone()
 print data
 db.close()
