@@ -1,0 +1,21 @@
+# coding=utf-8
+# __author__='wujide'
+from flask import json
+
+'''
+def id_card_anti_duplicated(id, list, file):
+    with open(file, 'r') as f:
+        d = json.dumps(f.read())
+        id_card_list = eval(json.loads(d))
+        # print id_card_list
+        if id in list:
+            print "Duplicated, find another one"
+            return False
+        else:
+            id_card_list.append(id)
+            # print "---id_card_list 2-----", id_card_list
+    with open(file, 'w') as ff:
+        json.dump(id_card_list, ff)
+    return id_card
+
+'''
