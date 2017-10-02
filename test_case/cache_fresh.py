@@ -17,9 +17,9 @@ def cache_refresh():
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         print '''------connecting to %s -------- ''' % d['ip']
         ssh.connect(d['ip'], d['port'], d['user'], d['pwd'])
-        cmd1 = 'redis-cli'
-        cmd2 = 'auth 123456'
-        cmd3 = 'get user_m_uid1360000929'
+        cmd1 = r'redis-cli'
+        cmd2 = r'auth 123456'
+        cmd3 = r'get user_m_uid1360000929'
         cmd = r'''redis-cli
                 auth 123456
                 get user_m_uid1360000929
