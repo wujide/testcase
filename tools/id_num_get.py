@@ -9,8 +9,13 @@ def get_id_num():
     birth_code = ['20000101', '19990101', '19980101', '19970101', '19960101', '19950101', '19940101', '19930101',
                   '19920101', '19910101', '19900101']
     random_code = random.randrange(1000, 9999, 1)
-    id_num = random.choice(address_str) + random.choice(birth_code) + str(random_code)
-    return id_num_anti_duplicated(id_num)
+    while True:
+        id_num = random.choice(address_str) + random.choice(birth_code) + str(random_code)
+        if id_num_anti_duplicated(id_num):
+            continue
+        else:
+            break
+    return id_num
 
 
 def id_num_anti_duplicated(id_num):
@@ -19,16 +24,16 @@ def id_num_anti_duplicated(id_num):
         # print id_num_list
         if id_num in id_num_list:
             print "Duplicated, find another one"
-            get_id_num()
+            return True
         else:
             print "Get a new id_num:", id_num
             id_num_list.append(id_num)
             # print "---id_num_list 2-----", id_num_list
             with open(r'../data/id_num_list', 'w') as ff:
                 json.dump(id_num_list, ff)
-                return id_num
+            return False
 
 
 if __name__ == "__main__":
-    get_id_num()
+    print get_id_num()
     # id_num_anti_duplicated('130423199901012166')
