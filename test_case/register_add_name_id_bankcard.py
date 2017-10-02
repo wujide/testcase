@@ -15,7 +15,7 @@ def db_register_add_name_id_bankcard(phone_num):
     cursor = db.cursor()
     name = "'" + get_name() + "'"
     id_num = "'" + get_id_num() + "'"
-    # todo: whot not work?
+    # todo: why does this cmd not work?
     cmd = r'set @phone_num=' + phone_num + ';' + r'set @card=' + id_num + ";" \
             r"set @name=" + name + ';' + \
         r'''select customer_id into @v_customer_id from tb_customer_info WHERE mobile_phone= @phone_num;\
