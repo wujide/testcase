@@ -5,12 +5,12 @@ from flask import json
 
 
 def get_id_num():
-    address_str = ['110108', '120114', '130283', '130304', '130423', '211201', '230702', '330106', '440402', '450305']
+    address_code = ['110108', '120114', '130283', '130304', '130423', '211201', '230702', '330106', '440402', '450305']
     birth_code = ['20000101', '19990101', '19980101', '19970101', '19960101', '19950101', '19940101', '19930101',
                   '19920101', '19910101', '19900101']
     random_code = random.randrange(1000, 9999, 1)
     while True:
-        id_num = random.choice(address_str) + random.choice(birth_code) + str(random_code)
+        id_num = random.choice(address_code) + random.choice(birth_code) + str(random_code)
         if id_num_anti_duplicated(id_num):
             continue
         else:
