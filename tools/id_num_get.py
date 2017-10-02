@@ -15,6 +15,7 @@ def get_id_num():
             continue
         else:
             break
+    return id_num
 
 
 def id_num_anti_duplicated(id_num):
@@ -34,5 +35,5 @@ def id_num_anti_duplicated(id_num):
 
 
 if __name__ == "__main__":
-    get_id_num()
+    print get_id_num()
     # id_num_anti_duplicated('130423199901012166')
