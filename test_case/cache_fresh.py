@@ -4,13 +4,14 @@ from logging import exception
 
 import paramiko
 from test_case.interface_test_class import InterfaceTest
+from tools.phone_to_customer_id import phone_to_customerid
 
 
-# read the log from the server; output: str
-def cache_refresh():
+def cache_refresh(phone_num):
     para_path = r"../info/redis"
     obj = InterfaceTest(para_path)
     d = obj.data_get()
+    customer_id = phone_to_customerid(phone_num)
     result = ""
     try:
         ssh = paramiko.SSHClient()
@@ -19,17 +20,15 @@ def cache_refresh():
         ssh.connect(d['ip'], d['port'], d['user'], d['pwd'])
         cmd1 = r'redis-cli'
         cmd2 = r'auth 123456'
-        cmd3 = r'get user_m_uid1360000929'
-        cmd = r'''redis-cli
-                auth 123456
-                get user_m_uid1360000929
-                '''
-
-        stdin1, stdout1, stderr1 = ssh.exec_command(cmd1)
-        stdin2, stdout2, stderr2 = ssh.exec_command(cmd2)
-        stdin3, stdout3, stderr3 = ssh.exec_command(cmd3)
-        #stdin, stdout, stderr = ssh.exec_command(cmd)
-        result = stdout2.read()
+        cmd3 = r'get user_m_uid' + str(customer_id)
+        cmd = [r'redis-cli', 'auth 123456', 'get user_m_uid1360000929']
+        result = {}
+        for key in cmd:
+            stdin, stdout, stderr = ssh.exec_command(key)
+            result[key] = stdout.read(), stderr.read()
+        #stdin, stdout, stderr = ssh.exec_command(r'redis-cli; auth 123456; get user_m_uid1360000929', get_pty=True)
+        stdin, stdout, stderr = ssh.exec_command(r'redis-cli')
+        result = stdout.read()  # todo: why no data in resutlt
         print "result:", result
         ssh.close()
     except Exception, e:
@@ -37,4 +36,4 @@ def cache_refresh():
     return result
 
 if __name__ == '__main__':
-    cache_refresh()
+    cache_refresh('13800138000')
