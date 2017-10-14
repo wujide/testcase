@@ -30,6 +30,6 @@ def register(phone_num):
 
 
 if __name__ == '__main__':
-    print register(13800138047)
+    print register(13800138040)
 
 

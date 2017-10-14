@@ -40,4 +40,4 @@ def verifCode_get(phone_num):
 
 
 if __name__ == "__main__":
-    print verifCode_get(13800138048)
+    print verifCode_get(13800138040)
