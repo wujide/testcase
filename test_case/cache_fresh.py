@@ -18,17 +18,12 @@ def cache_refresh(phone_num):
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         print '''------connecting to %s -------- ''' % d['ip']
         ssh.connect(d['ip'], d['port'], d['user'], d['pwd'])
-        cmd1 = r'redis-cli'
-        cmd2 = r'auth 123456'
-        cmd3 = r'get user_m_uid' + str(customer_id)
-        cmd = [r'redis-cli', 'auth 123456', 'get user_m_uid1360000929']
+        cmd = 'redis-cli -h 127.0.0.1 -p 6379 -a 123456'
+        cmd1 = r'get user_m_uid' + str(customer_id)
         result = {}
-        for key in cmd:
-            stdin, stdout, stderr = ssh.exec_command(key)
-            result[key] = stdout.read(), stderr.read()
-        #stdin, stdout, stderr = ssh.exec_command(r'redis-cli; auth 123456; get user_m_uid1360000929', get_pty=True)
-        stdin, stdout, stderr = ssh.exec_command(r'redis-cli')
-        result = stdout.read()  # todo: why no data in resutlt
+        stdin, stdout, stderr = ssh.exec_command(cmd)
+        stdin1, stdout1, stderr1 = ssh.exec_command(cmd1)
+        result = stdout1.read()  # todo: why no data in resutlt
         print "result:", result
         ssh.close()
     except Exception, e:

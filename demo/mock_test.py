@@ -8,7 +8,7 @@ import client
 
 
 # mock.Mock 用法
-class TestClient(unittest.TestCase):
+class Client_demo(unittest.TestCase):
 
     def test_success_request(self):
         success_send = mock.Mock(return_value='200', name='test_success_request')
@@ -53,7 +53,7 @@ class TestClient_2(unittest.TestCase):
         pass
 
 if __name__ == "__main__":
-    tc = TestClient()
+    tc = Client_demo()
     tc.test_success_request()
     tc.test_fail_request()
     tc.test_call_send_request_with_right_arguments()
