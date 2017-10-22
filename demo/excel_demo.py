@@ -32,14 +32,25 @@ def excel_table_byindex(file, colnameindex=0, by_index=1):
     return list
 
 
+# read the file
+def read_excel(file, row_start=0, col_index=0, sheets_index=1):
+    data = open_excel(file)
+    table = data.sheets()[sheets_index]
+    nrows = table.nrows  # 行数
+    ncols = table.ncols  # 列数
+    for row in range(row_start, nrows):
+        row = table.row_values(row)
+        print row
+
 if __name__ == "__main__":
     file = "excel_demo.xlsx"
-    for i in excel_table_byindex(file):
-        print i
+    read_excel(file, 0, )
+#    for i in excel_table_byindex(file):
+#       print i
+
 
 '''
-# read the file
-def read_excel(data, row_start, row_end, col_start, col_end):
+
 
 
 
