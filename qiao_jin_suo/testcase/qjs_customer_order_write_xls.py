@@ -4,21 +4,19 @@ import xlwt
 
 
 # 6 位码
-def order_no_generator(start, end):
+def order_no_generator():
     order_no = []
-    for i in range(start, end):
+    for i in range(100000, 1000100):
         order_no.append(i)
-    return order_no
+    return str(order_no.pop(0))
 
 
-def row_value(start, end):
+def row_value(row):
     order_no_pre = '12345678901234567890xx'
     ty_serial_no_pre = 'demoINVEST201710xxxx'
-    # start = 100000,
-    no_post = order_no_generator(start, end)
-    post = str(no_post.pop(0))
-    order_no = order_no_pre + post
-    ty_serial_no = ty_serial_no_pre + post
+    no_post = str(100000+row)
+    order_no = order_no_pre + no_post
+    ty_serial_no = ty_serial_no_pre + no_post
     order_time = '2017-10-25 09:00:00'
     pay_time = '2017-10-25 09:00:00'
     buy_amount = 1000
@@ -62,13 +60,10 @@ def write_excel_qjs_customer_order(row):
     # 生成第一行
     for i in range(0, len(row0)):
         sheet1.write(0, i, row0[i])
-    # order_no_pre = '12345678901234567890xx'
-    # ty_serial_no_pre = 'demoINVEST201710xxxx'
-    # no_post = order_no_genter(100000, 1000100)
-    for i in range(1, row + 1):
-        row_val = row_val(100000, 1000100)
+    for row in range(1, row + 1):
+        row_val = row_value(row)
         for col in range(0, len(row0)):
-            sheet1.write(i, col, row_val[col])
+            sheet1.write(row, col, row_val[col])
     wbk.save('qjs_customer_order.xls')  # 保存文件
 
     '''
@@ -80,4 +75,4 @@ def write_excel_qjs_customer_order(row):
 
 
 if __name__ == '__main__':
-    write_excel_qjs_customer_order()
+    write_excel_qjs_customer_order(100)
