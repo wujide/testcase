@@ -18,6 +18,7 @@ class InterfaceTest:
     @staticmethod
     def data_post(values):
         data = urllib.urlencode(values)
+        print "-------", values['url']
         req = urllib2.Request(values['url'])
         response = urllib2.urlopen(req, data)
         return response
@@ -40,6 +41,24 @@ class InterfaceTest:
 
     @staticmethod
     def para_get(**kwargs):
+        with open(kwargs['para_path'], 'r') as f:
+            values = json.dumps(f.read())
+            data = eval(json.loads(values))
+        # get the loginToken
+        with open(r"../data/login", 'r') as f:
+            values = json.dumps(f.read())
+            dd = eval(json.loads(values))
+            data['loginToken'] = dd['data']['loginToken']
+        # get interface url
+        with open(r"../info/url", 'r') as f:
+            values = json.dumps(f.read())
+            d = eval(json.loads(values))
+            data['url'] = d[kwargs['iterface_url']]
+        with open(kwargs['para_path'], 'wb+') as f:
+            json.dump(data, f)
+
+    @staticmethod
+    def para_get_for_qjs(**kwargs):
         with open(kwargs['para_path'], 'r') as f:
             values = json.dumps(f.read())
             data = eval(json.loads(values))
