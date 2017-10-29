@@ -15,7 +15,7 @@ def register(phone_num):
     para_path = r"../info/register_para.txt"
     obj = InterfaceTest(para_path)
     obj.para_get(para_path=para_path, iterface_url='url_register')
-    values = obj.data_get()
+    values = obj.data_get
     values['phoneNum'] = str(phone_num)
     values['verifCode'] = verifCode
     values['appId'] = str(phone_num)

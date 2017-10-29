@@ -2,7 +2,7 @@
 # __author__='wujide'
 import urllib
 import urllib2
-from flask import json
+import json
 
 
 class InterfaceTest:
@@ -12,15 +12,21 @@ class InterfaceTest:
     def data_get(self):
         with open(self.file_path, 'rb') as f:
             values = json.dumps(f.read())  # type(values): <type 'str'>
-            data = eval(json.loads(values))  # type(data): <type 'dict'>
-            return data
+            # data = eval(values)  # type(data): <type 'dict'>
+            return values
 
     @staticmethod
     def data_post(values):
         data = urllib.urlencode(values)
-        print "-------", values['url']
         req = urllib2.Request(values['url'])
         response = urllib2.urlopen(req, data)
+        return response
+
+    @staticmethod
+    def data_post_qjs(values):
+        # data = urllib.urlencode(values)
+        req = urllib2.Request(values['url'], headers=values['headers'])
+        response = urllib2.urlopen(req)
         return response
 
     # write result to a file
@@ -34,7 +40,7 @@ class InterfaceTest:
         with open(file_path, 'r') as f:
             values = json.dumps(f.read())
             data = eval(json.loads(values))
-            if data['status'] == '0':
+            if data['code'] == '0000':
                 print "%s PASS" % file_path.split("/")[2]
             else:
                 print "%s FAIL" % file_path.split("/")[2]
