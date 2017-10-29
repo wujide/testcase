@@ -12,21 +12,14 @@ class InterfaceTest:
     def data_get(self):
         with open(self.file_path, 'rb') as f:
             values = json.dumps(f.read())  # type(values): <type 'str'>
-            # data = eval(values)  # type(data): <type 'dict'>
             return values
 
     @staticmethod
     def data_post(values):
-        data = urllib.urlencode(values)
-        req = urllib2.Request(values['url'])
-        response = urllib2.urlopen(req, data)
-        return response
-
-    @staticmethod
-    def data_post_qjs(values):
-        # data = urllib.urlencode(values)
-        req = urllib2.Request(values['url'], headers=values['headers'])
-        response = urllib2.urlopen(req)
+        v1 = eval(json.loads(values))
+        v2 = eval(values)
+        req = urllib2.Request(v1['url'], headers=v1['headers'])
+        response = urllib2.urlopen(req, v2)
         return response
 
     # write result to a file
