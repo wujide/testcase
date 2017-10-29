@@ -60,16 +60,18 @@ class InterfaceTest:
     def para_get_for_qjs(**kwargs):
         with open(kwargs['para_path'], 'r') as f:
             values = json.dumps(f.read())
+        #    print "values in class:", values
             data = eval(json.loads(values))
-        # get the loginToken
-        with open(r"../data/login", 'r') as f:
+        #    print "data in class", data
+        # get the orderNo
+        with open(kwargs['get_para'], 'r') as f:
             values = json.dumps(f.read())
             dd = eval(json.loads(values))
-            data['loginToken'] = dd['data']['loginToken']
-        # get interface url
-        with open(r"../info/url", 'r') as f:
-            values = json.dumps(f.read())
-            d = eval(json.loads(values))
-            data['url'] = d[kwargs['iterface_url']]
+            if dd['data'] == '':
+                print "没有生成订单号"
+            else:
+                data['orderNo'] = dd['data']['orderNo']
         with open(kwargs['para_path'], 'wb+') as f:
             json.dump(data, f)
+
+
