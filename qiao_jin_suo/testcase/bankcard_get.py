@@ -1,5 +1,8 @@
 # coding=utf-8
 # __author__='wujide'
+
+# coding=utf-8
+# __author__='wujide'
 import random
 from flask import json
 
@@ -35,4 +38,3 @@ def id_num_anti_duplicated(id_num):
 if __name__ == "__main__":
     print get_bankcard_num()
     # id_num_anti_duplicated('130423199901012166')
-

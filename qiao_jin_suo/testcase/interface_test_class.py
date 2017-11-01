@@ -26,7 +26,10 @@ class InterfaceTest:
     @staticmethod
     def data_save(file_path, data):
         with open(file_path, 'wb+') as f:
-            json.dump(eval(data), f)
+            try:
+                json.dump(eval(data), f)
+            except:
+                return "no data to be saved!"
 
     @staticmethod
     def pass_or_fail(file_path):
@@ -67,11 +70,13 @@ class InterfaceTest:
         with open(kwargs['get_para'], 'r') as f:
             values = json.dumps(f.read())
             dd = eval(json.loads(values))
-            if dd['data'] == '':
-                print "没有生成订单号"
-            else:
+            try:
                 data['orderNo'] = dd['data']['orderNo']
+            except:
+                print "没有生成订单号"
         with open(kwargs['para_path'], 'wb+') as f:
             json.dump(data, f)
+
+
 
 

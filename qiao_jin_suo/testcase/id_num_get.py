@@ -4,11 +4,13 @@ import random
 from flask import json
 
 
-def get_bankcard_num():
-    address_code_pre = '6225881234'  # 招行前6位
-    random_code = random.randrange(100000, 999999, 1)
+def get_id_num():
+    address_code = ['110108', '120114', '130283', '130304', '130423', '211201', '230702', '330106', '440402', '450305']
+    birth_code = ['20000101', '19990101', '19980101', '19970101', '19960101', '19950101', '19940101', '19930101',
+                  '19920101', '19910101', '19900101']
+    random_code = random.randrange(1000, 9999, 1)
     while True:
-        id_num = address_code_pre + str(random_code)
+        id_num = random.choice(address_code) + random.choice(birth_code) + str(random_code)
         if id_num_anti_duplicated(id_num):
             continue
         else:
@@ -17,7 +19,7 @@ def get_bankcard_num():
 
 
 def id_num_anti_duplicated(id_num):
-    with open(r'../data/get_bankcard_num', 'r') as f:
+    with open(r'../data/id_num_list', 'r') as f:
         id_num_list = eval(json.loads(json.dumps(f.read())))
         # print id_num_list
         if id_num in id_num_list:
@@ -27,12 +29,11 @@ def id_num_anti_duplicated(id_num):
             print "Get a new id_num:", id_num
             id_num_list.append(id_num)
             # print "---id_num_list 2-----", id_num_list
-            with open(r'../data/get_bankcard_num', 'w') as ff:
+            with open(r'../data/id_num_list', 'w') as ff:
                 json.dump(id_num_list, ff)
             return False
 
 
 if __name__ == "__main__":
-    print get_bankcard_num()
+    print get_id_num()
     # id_num_anti_duplicated('130423199901012166')
-

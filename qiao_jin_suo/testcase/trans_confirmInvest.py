@@ -1,10 +1,13 @@
 # coding=utf-8
 # __author__='wujide'
+import threading
 from interface_test_class import InterfaceTest
 from trans_initInvest import initInvest
+from time import ctime
 
 
 def confirmInvest():
+    print "started at %s" % ctime()
     initInvest()
     para_path = r"../info/trans_confirmInvest_para.txt"
     obj = InterfaceTest(para_path)
@@ -16,6 +19,7 @@ def confirmInvest():
     file_save = r"../data/trans_confirmInvest"
     obj.data_save(file_save, data)
     obj.pass_or_fail(file_save)
+    print "ended at %s" % ctime()
     return data
 
 
