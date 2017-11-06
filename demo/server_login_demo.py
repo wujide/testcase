@@ -11,7 +11,9 @@ with open(r"../info/server", 'r') as f:
     port1 = d['port']
     user1 = d['user']
     pwd1 = d['pwd']
-    cmd1 = r"tail /ywdata/tomcat7-appInterface/logs/catalina.out|grep 13800138048"
+    # cmd1 = r"tail /ywdata/tomcat7-appInterface/logs/catalina.out|grep 13800138048"
+    # cmd1 = r"echo hello;echo hellooo"
+    cmd1 = r"ls; cd /ywdata; ls"
 
 print '''------connecting to %s -------- ''' % ip1
 
@@ -22,7 +24,7 @@ def ssh_cmd(ip, port, cmd, user, pwd):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(ip, port, user, pwd)
-        stdin, stdout, stderr = ssh.exec_command(cmd)
+        stdin, stdout, stderr = ssh.exec_command(cmd1, get_pty=True)
         result = stdout.read()
         print "result:", result
         ssh.close()
