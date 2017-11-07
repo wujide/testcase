@@ -17,9 +17,13 @@ def server_log_get():
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         print '''------connecting to %s -------- ''' % d['ip']
-        ssh.connect(d['ip'], d['port'], d['user'], d['pwd'])
+        try:
+            ssh.connect(d['ip'], d['port'], d['user'], d['pwd'])
+            paramiko.util.log_to_file('syslogin.log')
+        except:
+            print "cannot connect the server now!"
         print ctime()
-        cmd = r'16; 1; echo hello'
+        cmd = r"16; 1; echo hello"
         stdin, stdout, stderr = ssh.exec_command(cmd, get_pty=True)
         result = stdout.read(), stderr.read()
         # print "out = :", stdout.readlines()

@@ -4,27 +4,38 @@
 import paramiko
 from flask import json
 
-with open(r"../info/server", 'r') as f:
-    values = json.dumps(f.read())  # type(values): <type 'str'>
-    d = eval(json.loads(values))  # type(data): <type 'dict'>
-    ip1 = d['ip']
-    port1 = d['port']
-    user1 = d['user']
-    pwd1 = d['pwd']
-    # cmd1 = r"tail /ywdata/tomcat7-appInterface/logs/catalina.out|grep 13800138048"
-    # cmd1 = r"echo hello;echo hellooo"
-    cmd1 = r"ls; cd /ywdata; ls"
 
-print '''------connecting to %s -------- ''' % ip1
+def para_get():
+    with open(r"../info/server", 'r') as f:
+        values = json.dumps(f.read())  # type(values): <type 'str'>
+        para = eval(json.loads(values))  # type(data): <type 'dict'>
+        # cmd1 = r"tail /ywdata/tomcat7-appInterface/logs/catalina.out|grep 13800138048"
+        # cmd1 = r"echo hello;echo hellooo"
+        para['cmd1'] = r"ls; cd /ywdata; ls"
+        return para
 
 
-def ssh_cmd(ip, port, cmd, user, pwd):
-    result = ""
+def connect():
+    # use the paramiko connect the host,return conn
+    para = para_get()
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    print '''------connecting to %s -------- ''' % para['ip']
     try:
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(ip, port, user, pwd)
-        stdin, stdout, stderr = ssh.exec_command(cmd1, get_pty=True)
+        ssh.connect(para['ip'], para['port'], para['user'], para['pwd'])
+        return ssh
+    except:
+        return None
+
+
+def ssh_cmd():
+    cmd = r"ls; cd /ywdata; ls"
+    result = ""
+    ssh = connect()
+    if not ssh:
+        print "no server connected "
+    try:
+        stdin, stdout, stderr = ssh.exec_command(cmd, get_pty=True)
         result = stdout.read()
         print "result:", result
         ssh.close()
@@ -33,5 +44,8 @@ def ssh_cmd(ip, port, cmd, user, pwd):
     return result
 
 
+
 if __name__ == '__main__':
-    ssh_cmd(ip1, port1, cmd1, user1, pwd1)
+    ssh_cmd()
+
+
