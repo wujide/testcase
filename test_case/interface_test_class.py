@@ -33,7 +33,7 @@ class InterfaceTest:
         with open(file_path, 'r') as f:
             values = json.dumps(f.read())
             data = eval(json.loads(values))
-            if data['status'] == '0':
+            if data.get('status') == '0':
                 print "%s PASS" % file_path.split("/")[2]
             else:
                 print "%s FAIL" % file_path.split("/")[2]
