@@ -24,4 +24,5 @@ def confirmInvest():
 
 
 if __name__ == '__main__':
-    print confirmInvest()
+    for i in range(3):
+        print confirmInvest()
