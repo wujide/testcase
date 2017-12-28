@@ -26,3 +26,28 @@ t2 = time.clock()
 t22 = time.time()
 print t2 -t1
 print t22 -t11
+
+print "---------------------------------------------"
+# Case 1： 计算在某个时间段之内的工作日天数
+from business_calendar import Calendar, MO, TU, WE, TH, FR
+import datetime
+date1 = datetime.datetime(2013,1,10)
+# normal calendar, no holidays
+cal = Calendar()
+date2 = datetime.datetime(2013,3,20)
+print('%s days between %s and %s' % (cal.busdaycount(date1, date2), date1, date2))
+
+# Case 2： 计算若干工作日之后的日期
+date3 = datetime.datetime(2018, 1, 1)
+cal = Calendar()
+date4 = cal.addbusdays(date3, 33)
+print("The specified date will be %s" % date4)
+
+# Case 3： 结合假期，以及星期的概念，计算工作日，可在holodays 中加入非工作日的日期
+date5 = datetime.datetime(2018, 1, 1)
+# normal calendar, no holidays
+cal = Calendar(holidays=['2018-01-02', '2018-01-03'])
+date6 = datetime.datetime(2018, 1, 6)
+print('%s business days between %s and %s' % (cal.busdaycount(date5, date6), date5, date6))
+
+
