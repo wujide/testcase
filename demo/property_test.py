@@ -3,6 +3,9 @@
 
 
 class Students(object):
+    def __init__(self):
+        self._score = None
+
     @property
     def score(self):
         return self._score
