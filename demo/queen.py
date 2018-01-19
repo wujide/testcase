@@ -5,9 +5,9 @@ import random
 
 
 def conflict(state, col):
-    # 冲突函数，row为行，col为列
-    row = len(state)
-    for i in range(row):
+    # row为行，col为列, state为皇后的状态
+    row = len(state)    # 目前没冲突的行数
+    for i in range(row):    # 从1- row行依次检测是否与row+1行皇后冲突
         if abs(state[i] - col) in (0, row - i):
             return True
     return False
@@ -24,7 +24,7 @@ def queens(num=8, state=()):
                     yield (pos,) + result
 
 
-def queenprint(solution):
+def queen_print(solution):
     # 打印函数
     def line(pos, length=len(solution)):
         return '. ' * (pos) + 'X ' + '. ' * (length - pos - 1)
@@ -38,4 +38,4 @@ for solution in list(queens(8)):
 
 print '  total number is ' + str(len(list(queens())))
 print '  one of the range is:\n'
-queenprint(random.choice(list(queens())))
+queen_print(random.choice(list(queens())))
