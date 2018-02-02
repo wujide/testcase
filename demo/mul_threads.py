@@ -25,6 +25,6 @@ threads.append(t2)
 if __name__ == '__main__':
     for t in threads:
         t.setDaemon(True)
-        t.start()
-    t.join()
+        t.start()  # start是启动线程
+    t.join()  # join是阻塞当前线程
     print "all over %s" % ctime()
