@@ -1,7 +1,6 @@
 # coding=utf-8
 # __author__='wujide'
 
-
 import random
 
 
@@ -18,8 +17,6 @@ def get_random_number(num):
 # 冒泡排序
 # 原理是对序列进行遍历，遍历过程中如果发现相邻两个元素，左边的元素大于右边，则进行交换，
 # 一次遍历之后最大的元素被移动到对尾，然后进行第二次遍历，直到队列有序。
-
-
 def bubble_sort(nums):
     for i in range((len(nums)-1)):
         for j in range(len(nums)-1-i):
@@ -30,8 +27,6 @@ def bubble_sort(nums):
 
 # 插入排序
 # 主要思想是每次取一个列表元素与列表中已经排序好的列表段进行比较，然后插入从而得到新的排序好的列表段，最终获得排序好的列表。
-
-
 def insert_sort(lists):
     count = len(lists)
     for post in range(1, count):
@@ -70,8 +65,18 @@ def quick_sort(lq, start, end):
     return lq
 
 
+# 选择排序
+# 选择排序的原理是是先找到起始数组中最小的元素，将它交换到i=0；然后寻找剩下元素中最小的元素，将它交换到i=1的位置……
+# 直到找到第二大的元素，将它交换到n-2的位置。这时，整个数组的排序完成。
+def select_sort(ls):
+    for i in range(len(ls)):
+        min_index = i
+        for j in range(i, len(ls)):
+            if ls[j] < ls[min_index]:
+                min_index = j
+        ls[i], ls[min_index] = ls[min_index], ls[i]
 
-
+    return ls
 
 
 if __name__ == '__main__':
@@ -85,3 +90,7 @@ if __name__ == '__main__':
 
     ld = la[:]
     print "快速排序后:", quick_sort(ld, 0, len(ld)-1)
+
+    le = la[:]
+    print "选择排序后:", select_sort(le)
+
