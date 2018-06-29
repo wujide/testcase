@@ -1,6 +1,8 @@
 # coding=utf-8
 # author__= 'wujide'
 
+# 找出两个有序数组中想同的数，并输出到一个新的数组中
+
 
 def find_same_num_from_two_list(la, lb):
     lc = []
