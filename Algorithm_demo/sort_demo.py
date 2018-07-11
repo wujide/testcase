@@ -65,6 +65,17 @@ def quick_sort(lq, start, end):
     return lq
 
 
+# 实现方法2
+def qsort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[0]
+        return qsort([x for x in arr[1:] if x < pivot]) + \
+               [pivot] + \
+               qsort([x for x in arr[1:] if x >= pivot])
+
+
 # 选择排序
 # 选择排序的原理是是先找到起始数组中最小的元素，将它交换到i=0；然后寻找剩下元素中最小的元素，将它交换到i=1的位置……
 # 直到找到第二大的元素，将它交换到n-2的位置。这时，整个数组的排序完成。
@@ -89,7 +100,9 @@ if __name__ == '__main__':
     print "插入排序后:", insert_sort(lc)
 
     ld = la[:]
+    ld_cp = la[:]
     print "快速排序后:", quick_sort(ld, 0, len(ld)-1)
+    print "快速排序2后:", qsort(ld_cp)
 
     le = la[:]
     print "选择排序后:", select_sort(le)

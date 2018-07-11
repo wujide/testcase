@@ -9,6 +9,7 @@ from mathfunc import *
 class TestMathFunc(unittest.TestCase):
     """Test mathfuc.py"""
 
+    # 在每个test执行前都要执行的方法。
     def setUp(self):
         print "do something before test.Prepare environment."
 
@@ -48,4 +49,4 @@ class TestMathFunc(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main()  # unittest.main()其实用的就是defaultTestLoader
