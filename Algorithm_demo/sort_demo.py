@@ -1,17 +1,7 @@
 # coding=utf-8
 # __author__='wujide'
 
-import random
-
-
-# 随机生成0~100之间的数值
-def get_random_number(num):
-    lists = []
-    i = 0
-    while i < num:
-        lists.append(random.randint(0, 100))
-        i += 1
-    return lists
+from get_random_list import get_random_list
 
 
 # 冒泡排序
@@ -91,7 +81,7 @@ def select_sort(ls):
 
 
 if __name__ == '__main__':
-    la = get_random_number(10)
+    la = get_random_list(10)
     lb = la[:]
     print "排序前：", la
     print "冒泡排序后:", bubble_sort(lb)
